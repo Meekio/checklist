@@ -1,0 +1,269 @@
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #a8d8f0 0%, #7ab8e8 40%, #6aabdf 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: system-ui, 'Segoe UI', sans-serif;
+}
+
+#root {
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+}
+
+.page {
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 32px 16px;
+}
+
+.card {
+  background: #faf9f7;
+  border-radius: 16px;
+  padding: 40px 44px;
+  width: 100%;
+  max-width: 480px;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.12);
+}
+
+h1 {
+  font-size: 28px;
+  font-weight: 500;
+  color: #1a1a2e;
+  margin-bottom: 6px;
+  letter-spacing: -0.3px;
+}
+
+.subtitle {
+  font-size: 14px;
+  color: #888;
+  margin-bottom: 28px;
+}
+
+/* File input */
+.field {
+  margin-bottom: 20px;
+}
+
+.field label {
+  display: block;
+  font-size: 14px;
+  color: #444;
+  margin-bottom: 8px;
+  font-weight: 500;
+}
+
+.file-row {
+  display: flex;
+  align-items: center;
+  background: #b8d9f0;
+  border-radius: 30px;
+  padding: 6px 6px 6px 6px;
+  cursor: pointer;
+  transition: background 0.2s;
+  border: 2px dashed transparent;
+}
+
+.file-row:hover {
+  background: #a8cfe8;
+  border-color: #7ab0d4;
+}
+
+.choose-btn {
+  background: #5a7fa8;
+  color: #fff;
+  border: none;
+  border-radius: 24px;
+  padding: 8px 18px;
+  font-size: 14px;
+  cursor: pointer;
+  white-space: nowrap;
+  flex-shrink: 0;
+  transition: background 0.2s;
+}
+
+.choose-btn:hover {
+  background: #4a6f98;
+}
+
+.file-name {
+  margin-left: 14px;
+  font-size: 14px;
+  color: #2a4a6a;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* Actions */
+.actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  margin-top: 28px;
+}
+
+.reset-btn {
+  background: transparent;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  padding: 10px 22px;
+  font-size: 14px;
+  color: #666;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.reset-btn:hover:not(:disabled) {
+  background: #f0f0f0;
+}
+
+.reset-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.run-btn {
+  background: #6c4fd4;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 10px 28px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transition: background 0.2s;
+}
+
+.run-btn:hover:not(:disabled) {
+  background: #5a3fc0;
+}
+
+.run-btn:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+/* Spinner */
+.spinner {
+  width: 14px;
+  height: 14px;
+  border: 2px solid rgba(255,255,255,0.4);
+  border-top-color: #fff;
+  border-radius: 50%;
+  animation: spin 0.7s linear infinite;
+  display: inline-block;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* Error */
+.error-msg {
+  margin-top: 16px;
+  padding: 10px 14px;
+  background: #fde8e8;
+  border-radius: 8px;
+  color: #c0392b;
+  font-size: 13px;
+}
+
+/* Results */
+.results {
+  margin-top: 28px;
+  border-top: 1px solid #e5e5e5;
+  padding-top: 20px;
+}
+
+.summary {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 16px;
+  flex-wrap: wrap;
+}
+
+.badge {
+  display: inline-block;
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.badge.correct {
+  background: #d4f4e2;
+  color: #1a7a45;
+}
+
+.badge.incorrect {
+  background: #fde8e8;
+  color: #c0392b;
+}
+
+.badge.error {
+  background: #fff3cd;
+  color: #856404;
+}
+
+/* Table */
+.table-wrap {
+  overflow-x: auto;
+  border-radius: 10px;
+  border: 1px solid #e5e5e5;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+}
+
+thead tr {
+  background: #f0f0f0;
+}
+
+th {
+  padding: 10px 12px;
+  text-align: left;
+  font-weight: 600;
+  color: #444;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+td {
+  padding: 10px 12px;
+  border-bottom: 1px solid #f0f0f0;
+  color: #333;
+  vertical-align: top;
+}
+
+tr:last-child td {
+  border-bottom: none;
+}
+
+tr.correct td { background: #f8fffe; }
+tr.incorrect td { background: #fffafa; }
+tr.error td { background: #fffdf0; }
+
+.rule-cell {
+  max-width: 200px;
+}
+
+.remarks-cell {
+  max-width: 180px;
+  color: #666;
+}

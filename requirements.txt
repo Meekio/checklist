@@ -1,0 +1,8 @@
+pandas
+PyMuPDF
+Pillow
+google-cloud-aiplatform
+openpyxl
+fastapi
+uvicorn[standard]
+python-multipart

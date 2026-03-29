@@ -1,0 +1,12 @@
+__pycache__/
+*.pyc
+*.pyo
+
+# temp output files
+output/
+*.png
+
+# env
+.env
+venv/
+.venv/

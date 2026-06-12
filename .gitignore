@@ -1,12 +1,25 @@
+# Python
 __pycache__/
 *.pyc
 *.pyo
+venv/
+.venv/
 
-# temp output files
+# Environment / secrets
+.env
+
+# QC output files
 output/
 *.png
 
-# env
-.env
-venv/
-.venv/
+# Frontend build artifacts
+frontend/node_modules/
+frontend/dist/
+frontend/.env
+
+# Snapshots / old backups
+snapshot_qc/
+
+# OS
+.DS_Store
+Thumbs.db

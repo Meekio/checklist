@@ -32,7 +32,7 @@ body {
   border-radius: 16px;
   padding: 40px 44px;
   width: 100%;
-  max-width: 480px;
+  max-width: 600px;
   box-shadow: 0 8px 32px rgba(0,0,0,0.12);
 }
 
@@ -182,88 +182,44 @@ h1 {
   font-size: 13px;
 }
 
-/* Results */
-.results {
-  margin-top: 28px;
-  border-top: 1px solid #e5e5e5;
-  padding-top: 20px;
-}
-
-.summary {
-  display: flex;
-  gap: 8px;
-  margin-bottom: 16px;
-  flex-wrap: wrap;
-}
-
-.badge {
-  display: inline-block;
-  padding: 4px 12px;
-  border-radius: 20px;
-  font-size: 12px;
-  font-weight: 600;
-}
-
-.badge.correct {
-  background: #d4f4e2;
-  color: #1a7a45;
-}
-
-.badge.incorrect {
-  background: #fde8e8;
-  color: #c0392b;
-}
-
-.badge.error {
-  background: #fff3cd;
-  color: #856404;
-}
-
-/* Table */
-.table-wrap {
-  overflow-x: auto;
+/* Download */
+.download-wrap {
+  margin-top: 24px;
+  padding: 16px 20px;
+  background: #f0faf4;
+  border: 1px solid #b7e4c7;
   border-radius: 10px;
-  border: 1px solid #e5e5e5;
+  display: flex;
+  align-items: center;
+  gap: 10px;
 }
 
-table {
-  width: 100%;
-  border-collapse: collapse;
+.check-icon {
+  width: 20px;
+  height: 20px;
+  color: #1a7a45;
+  flex-shrink: 0;
+}
+
+.done-text {
+  font-size: 14px;
+  color: #1a7a45;
+  font-weight: 500;
+  flex: 1;
+}
+
+.download-btn {
+  background: #1a7a45;
+  color: #fff;
+  text-decoration: none;
+  border-radius: 8px;
+  padding: 8px 18px;
   font-size: 13px;
+  font-weight: 500;
+  white-space: nowrap;
+  transition: background 0.2s;
 }
 
-thead tr {
-  background: #f0f0f0;
-}
-
-th {
-  padding: 10px 12px;
-  text-align: left;
-  font-weight: 600;
-  color: #444;
-  border-bottom: 1px solid #e0e0e0;
-}
-
-td {
-  padding: 10px 12px;
-  border-bottom: 1px solid #f0f0f0;
-  color: #333;
-  vertical-align: top;
-}
-
-tr:last-child td {
-  border-bottom: none;
-}
-
-tr.correct td { background: #f8fffe; }
-tr.incorrect td { background: #fffafa; }
-tr.error td { background: #fffdf0; }
-
-.rule-cell {
-  max-width: 200px;
-}
-
-.remarks-cell {
-  max-width: 180px;
-  color: #666;
+.download-btn:hover {
+  background: #155f37;
 }

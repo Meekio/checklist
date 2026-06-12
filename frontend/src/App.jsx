@@ -21,22 +21,19 @@ function FileInput({ label, accept, file, onChange }) {
   )
 }
 
-function StatusBadge({ status }) {
-  const cls = status === 'Correct' ? 'badge correct' : status === 'Incorrect' ? 'badge incorrect' : 'badge error'
-  return <span className={cls}>{status}</span>
-}
-
 export default function App() {
   const [pdf, setPdf] = useState(null)
   const [rules, setRules] = useState(null)
   const [loading, setLoading] = useState(false)
-  const [results, setResults] = useState(null)
+  const [downloadUrl, setDownloadUrl] = useState(null)
+  const [filename, setFilename] = useState(null)
   const [error, setError] = useState(null)
 
   const reset = () => {
     setPdf(null)
     setRules(null)
-    setResults(null)
+    setDownloadUrl(null)
+    setFilename(null)
     setError(null)
   }
 
@@ -44,27 +41,28 @@ export default function App() {
     if (!pdf || !rules) return
     setLoading(true)
     setError(null)
-    setResults(null)
+    setDownloadUrl(null)
 
     const form = new FormData()
     form.append('drawing', pdf)
     form.append('rules', rules)
 
     try {
-      const res = await fetch('http://localhost:8000/run-qc', { method: 'POST', body: form })
-      if (!res.ok) throw new Error(`Server error: ${res.status}`)
-      const data = await res.json()
-      setResults(data.results)
+      const res = await fetch('http://localhost:8001/run-qc', { method: 'POST', body: form })
+      if (!res.ok) {
+        const err = await res.json().catch(() => ({ detail: `Server error: ${res.status}` }))
+        throw new Error(err.detail || `Server error: ${res.status}`)
+      }
+      const blob = await res.blob()
+      const fname = res.headers.get('x-filename') || 'qc_results.xlsx'
+      setDownloadUrl(URL.createObjectURL(blob))
+      setFilename(fname)
     } catch (e) {
       setError(e.message)
     } finally {
       setLoading(false)
     }
   }
-
-  const correct = results?.filter(r => r.status === 'Correct').length ?? 0
-  const incorrect = results?.filter(r => r.status === 'Incorrect').length ?? 0
-  const errors = results?.filter(r => r.status === 'Error').length ?? 0
 
   return (
     <div className="page">
@@ -89,35 +87,15 @@ export default function App() {
           </button>
         </div>
 
-        {results && (
-          <div className="results">
-            <div className="summary">
-              <span className="badge correct">{correct} Correct</span>
-              <span className="badge incorrect">{incorrect} Incorrect</span>
-              {errors > 0 && <span className="badge error">{errors} Error</span>}
-            </div>
-            <div className="table-wrap">
-              <table>
-                <thead>
-                  <tr>
-                    <th>#</th>
-                    <th>QC Rule</th>
-                    <th>Status</th>
-                    <th>Remarks</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {results.map((r, i) => (
-                    <tr key={i} className={r.status?.toLowerCase()}>
-                      <td>{i + 1}</td>
-                      <td className="rule-cell">{r.rule}</td>
-                      <td><StatusBadge status={r.status} /></td>
-                      <td className="remarks-cell">{r.remarks}</td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
+        {downloadUrl && (
+          <div className="download-wrap">
+            <svg className="check-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+              <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
+            </svg>
+            <span className="done-text">QC complete</span>
+            <a className="download-btn" href={downloadUrl} download={filename}>
+              ↓ Download Report
+            </a>
           </div>
         )}
       </div>
